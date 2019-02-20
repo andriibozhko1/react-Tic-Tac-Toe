@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.js"],"names":["__webpack_require__","r","__webpack_exports__","console","log"],"mappings":"wHAAAA,EAAAC,EAAAC,GAAAF,EAAA,GAAAA,EAAA,GAGAG,QAAQC,IAAI","file":"static/js/main.b5c70b1d.chunk.js","sourcesContent":["import React from 'react';\nimport ReactDOM from 'react-dom';\n\nconsole.log(1);"],"sourceRoot":""}
