@@ -26,9 +26,9 @@ class Game extends Component{
       circleStatus: [],
     }
   }
+  
   putValueToArray = (cell) => {
-    console.log(cell);
-    if(cell.isEmpty) {
+    if(cell.isEmpty !== null) {
       let id = +cell.id;   
       let newCells = [...this.state.cells];
       let crossStatus = [...this.state.crossStatus ];
@@ -72,22 +72,19 @@ class Game extends Component{
       let circleStatus = this.state.circleStatus.filter(item => ~combination.indexOf(item));
 
         if (JSON.stringify(combination) === JSON.stringify(crossStatus)) {
-          this.winStatus = 'X';
-          alert(`WIN: ${this.winStatus}`);
-          this.restartGame();
-          return;
+           this.winStatus = 'X';
+           alert(`WIN: ${this.winStatus}`);
+           this.restartGame();
         } else if (JSON.stringify(combination) === JSON.stringify(circleStatus)) {
             this.winStatus = 'O';
             alert(`WIN: ${this.winStatus}`);
             this.restartGame();
-            return;
         }
     })
     if(!this.winStatus && this.counter >= 9) {
       this.winStatus = 'Draw';
       alert(this.winStatus);
       this.restartGame();;
-      return;
     }
   }
 
