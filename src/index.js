@@ -72,23 +72,25 @@ class Game extends Component{
 
         if (JSON.stringify(combination) === JSON.stringify(crossStatus)) {
           this.winStatus = 'X';
+          alert(`WIN: ${this.winStatus}`);
           this.restartGame();
           return;
         } else if (JSON.stringify(combination) === JSON.stringify(circleStatus)) {
             this.winStatus = 'O';
+            alert(`WIN: ${this.winStatus}`);
             this.restartGame();
             return;
         }
     })
     if(!this.winStatus && this.counter >= 9) {
       this.winStatus = 'Draw';
+      alert(this.winStatus);
       this.restartGame();;
       return;
     }
   }
 
   restartGame = () => {
-    alert(`Win : ${this.winStatus}`);
     this.setState({
         cells: this.fillTable(),
         crossStatus: [],
