@@ -29,7 +29,6 @@ class Game extends Component{
   
   putValueToArray = (cell) => {
     if(cell.isEmpty) {
-      console.log(cell);
       let id = +cell.id;   
       let newCells = [...this.state.cells];
       let crossStatus = [...this.state.crossStatus ];
