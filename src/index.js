@@ -26,9 +26,10 @@ class Game extends Component{
       circleStatus: [],
     }
   }
-  putValueToArray = (event) => {
-    if(event.target.dataset.isEmpty) {
-      let id = +event.target.dataset.id;   
+  putValueToArray = (cell) => {
+    console.log(cell);
+    if(cell.isEmpty) {
+      let id = +cell.id;   
       let newCells = [...this.state.cells];
       let crossStatus = [...this.state.crossStatus ];
       let circleStatus = [...this.state.circleStatus];
@@ -110,10 +111,9 @@ class Game extends Component{
             <div 
             key={index}
             className={`Game__cell ${cell.status ? `Game__cell-${cell.status}` : ''}`}
-            data-status={cell.status}
-            data-id={cell.id}
-            data-is-empty={cell.isEmpty}
-            onClick={this.putValueToArray}
+            onClick={() => {
+              this.putValueToArray(cell)
+            }}
             >
             </div>)
         })}
