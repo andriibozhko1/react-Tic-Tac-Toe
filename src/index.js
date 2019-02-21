@@ -26,9 +26,10 @@ class Game extends Component{
       circleStatus: [],
     }
   }
-  putValueToArray = (event) => {
-    if(event.target.dataset.isEmpty) {
-      let id = +event.target.dataset.id;   
+  
+  putValueToArray = (cell) => {
+    if(cell.isEmpty !== null) {
+      let id = +cell.id;   
       let newCells = [...this.state.cells];
       let crossStatus = [...this.state.crossStatus ];
       let circleStatus = [...this.state.circleStatus];
@@ -71,24 +72,23 @@ class Game extends Component{
       let circleStatus = this.state.circleStatus.filter(item => ~combination.indexOf(item));
 
         if (JSON.stringify(combination) === JSON.stringify(crossStatus)) {
-          this.winStatus = 'X';
-          this.restartGame();
-          return;
+           this.winStatus = 'X';
+           alert(`WIN: ${this.winStatus}`);
+           this.restartGame();
         } else if (JSON.stringify(combination) === JSON.stringify(circleStatus)) {
             this.winStatus = 'O';
+            alert(`WIN: ${this.winStatus}`);
             this.restartGame();
-            return;
         }
     })
     if(!this.winStatus && this.counter >= 9) {
       this.winStatus = 'Draw';
+      alert(this.winStatus);
       this.restartGame();;
-      return;
     }
   }
 
   restartGame = () => {
-    alert(`Win : ${this.winStatus}`);
     this.setState({
         cells: this.fillTable(),
         crossStatus: [],
@@ -108,10 +108,9 @@ class Game extends Component{
             <div 
             key={index}
             className={`Game__cell ${cell.status ? `Game__cell-${cell.status}` : ''}`}
-            data-status={cell.status}
-            data-id={cell.id}
-            data-is-empty={cell.isEmpty}
-            onClick={this.putValueToArray}
+            onClick={() => {
+              this.putValueToArray(cell)
+            }}
             >
             </div>)
         })}
