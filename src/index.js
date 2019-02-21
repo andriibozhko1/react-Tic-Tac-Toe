@@ -18,6 +18,7 @@ class Game extends Component{
       [0,4,8],
       [2,4,6]
     ]
+    this.winStatus = false;
 
     this.state = {
       cells: this.fillTable(),
@@ -65,41 +66,36 @@ class Game extends Component{
   }
 
   checkWinCombination = () => {
-    let quantityEmptyCells = 0;
     this.winCombination.map(combination => {
       let crossStatus = this.state.crossStatus.filter(item => ~combination.indexOf(item));
       let circleStatus = this.state.circleStatus.filter(item => ~combination.indexOf(item));
 
-
-      if (JSON.stringify(combination) === JSON.stringify(crossStatus)) {
-        alert("WIN: X");
-        this.restartGame();
-        return;
-      } else if (
-        JSON.stringify(combination) === JSON.stringify(circleStatus)) {
-        alert("WIN: O");
-        this.restartGame();
-        return;
-      } else if(quantityEmptyCells >= this.state.cells.length) {      
-          alert('Draw');
+        if (JSON.stringify(combination) === JSON.stringify(crossStatus)) {
+          this.winStatus = 'X';
           this.restartGame();
           return;
-      }
+        } else if (JSON.stringify(combination) === JSON.stringify(circleStatus)) {
+            this.winStatus = 'O';
+            this.restartGame();
+            return;
+        }
     })
-    
-    this.state.cells.map(cell => {
-      if(!cell.isEmpty) {
-        quantityEmptyCells++;
-      }
-    })
+    if(!this.winStatus && this.counter >= 9) {
+      this.winStatus = 'Draw';
+      this.restartGame();;
+      return;
+    }
   }
 
   restartGame = () => {
-    this.counter = 0;
+    alert(`Win : ${this.winStatus}`);
     this.setState({
         cells: this.fillTable(),
         crossStatus: [],
         circleStatus: [] 
+    },() => {
+      this.counter = 0;
+      this.winStatus = false;
     })
   }
 
@@ -125,6 +121,5 @@ class Game extends Component{
     )
   }
 }
-
 
 ReactDOM.render(<Game />, document.getElementById('app'));
